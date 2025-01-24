@@ -1,12 +1,188 @@
 <!DOCTYPE html>
-<html lang="en-US">
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-<body>
 
-<div ng-app="">
-  <p>Name : <input type="text" ng-model="name"></p>
-  <h1>Hello {{name}}</h1>
-</div>
+<html lang="en" ng-app="FS_gifts">
 
+
+<!-- Angula Initializer -->
+<script src="js/angular.min.js"></script>
+<script src="js/jquery.min.js"></script>
+
+
+<head>
+
+    <!-- Metadados -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Title -->
+    <title>Lista de Presentes</title>
+
+    <!-- Styles -->
+    <style>
+        body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f5fa;
+        margin: 0;
+        padding: 0;
+        }
+
+        .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        text-align: center;
+        }
+
+        .header {
+        margin-bottom: 30px;
+        }
+
+        .header h1 {
+        font-size: 24px;
+        color: #5e4c7b;
+        }
+
+        .header p {
+        font-size: 16px;
+        color: #7a6d92;
+        }
+
+        .item-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr); /* 4 itens por linha */
+        gap: 20px;
+        justify-content: center;
+        }
+
+        .item-card {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 15px;
+        text-align: center;
+        }
+
+        .item-card img {
+        max-width: 100%;
+        border-radius: 8px;
+        }
+
+        .item-title {
+        font-size: 16px;
+        font-weight: bold;
+        color: #4a3a66;
+        margin: 10px 0;
+        }
+
+        .item-price {
+        font-size: 14px;
+        color: #4a3a66;
+        margin: 5px 0;
+        }
+
+        .item-card button {
+        background-color: #4a3a66;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 10px 15px;
+        margin: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        }
+
+        .item-card button:hover {
+        background-color: #6c5597;
+        }
+
+    @media (max-width: 768px) {
+      .item-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 itens por linha no mobile */
+      }
+    }
+
+    @media (max-width: 480px) {
+      .item-grid {
+        grid-template-columns: 1fr; /* 1 item por linha em telas muito pequenas */
+      }
+    }
+    </style>
+
+</head>
+
+<body ng-controller="MainController">
+
+    <div class="container">
+        <div class="header">
+        <h1>Chave PIX do Noivo: 085.600.079-54</h1>
+        <p>Escolha o presente e clique no botão correspondente para realizar a compra ou pagar via PIX.</p>
+        </div>
+
+        <h2>ITENS DE CASA</h2>
+        <div class="item-grid">
+        <div class="item-card" ng-repeat="item in items">
+            <img ng-src="{{item.image}}" alt="{{item.title}}">
+            <p class="item-title">{{item.title}}</p>
+            <p class="item-price">R$ {{item.price}}</p>
+            <button ng-click="goTo(item.pixLink)">P{{item.id}}</button>
+            <button ng-click="goTo(item.cardLink)">C{{item.id}}</button>
+        </div>
+        </div>
+    </div>
+
+
+    <script>
+        var app = angular.module('giftApp', []);
+        app.controller('MainController', function($scope, $window) {
+        $scope.items = [
+            {
+            id: 1,
+            title: "Kit Tábuas De Cozinha Em Madeira Tramontina - 2 Peças",
+            price: "60,00",
+            image: "images/2.png",
+            pixLink: "https://pagamento.sejaefi.com.br/b1bed5e7-1b00-467c-935b-e3ac462b9c98",
+            cardLink: "https://nubank.com.br/cobrar/45fat/6792f20e-3ba2-4a17-99dc-907cc8f4e1b1",
+            },
+            {
+            id: 2,
+            title: "Jogo De Copos Nadir Aruba 465ML - 06 Peças",
+            price: "60,00",
+            image: "images/3.png",
+            pixLink: "https://pagamento.sejaefi.com.br/e3e57588-5a45-41f9-80d9-534022336bb7",
+            cardLink: "https://nubank.com.br/cobrar/45fat/6792f20e-3ba2-4a17-99dc-907cc8f4e1b1",
+            },
+            {
+            id: 3,
+            title: "Jogo De Xícaras De Café Bee 8 Peças Hauskraft - 80ml",
+            price: "70,00",
+            image: "images/4.png",
+            pixLink: "https://nubank.com.br/cobrar/45fat/6792f265-a769-4208-868d-1550fcc32bd3",
+            cardLink: "https://pagamento.sejaefi.com.br/57ba4336-d713-4ce2-980e-c532e695f459"
+            },
+            {
+            id: 4,
+            title: "Kit De Banheiro Cerâmica Reactive Lyor",
+            price: "70,00",
+            image: "images/5.png",
+            pixLink: "https://example.com/pix4",
+            cardLink: "https://example.com/card4"
+            },
+            {
+            id: 5,
+            title: "Novo Item - Exemplo",
+            price: "80,00",
+            image: "images/6.png",
+            pixLink: "https://example.com/pix5",
+            cardLink: "https://example.com/card5"
+            }
+        ];
+
+        $scope.goTo = function(url) {
+            $window.open(url, "_blank");
+        };
+        });
+    </script>
+    
 </body>
+
 </html>
