@@ -1,116 +1,10 @@
 <!DOCTYPE html>
 
-<html lang="en" ng-app="FS_gifts">
+<html lang="en" ng-app="familiasalle">
 
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 
-<!-- Angula Initializer -->
-<script src="js/angular.min.js"></script>
-<script src="js/jquery.min.js"></script>
-
-
-<head>
-
-    <!-- Metadados -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- Title -->
-    <title>Lista de Presentes</title>
-
-    <!-- Styles -->
-    <style>
-        body {
-        font-family: Arial, sans-serif;
-        background-color: #f8f5fa;
-        margin: 0;
-        padding: 0;
-        }
-
-        .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-        text-align: center;
-        }
-
-        .header {
-        margin-bottom: 30px;
-        }
-
-        .header h1 {
-        font-size: 24px;
-        color: #5e4c7b;
-        }
-
-        .header p {
-        font-size: 16px;
-        color: #7a6d92;
-        }
-
-        .item-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr); /* 4 itens por linha */
-        gap: 20px;
-        justify-content: center;
-        }
-
-        .item-card {
-        background-color: white;
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        padding: 15px;
-        text-align: center;
-        }
-
-        .item-card img {
-        max-width: 100%;
-        border-radius: 8px;
-        }
-
-        .item-title {
-        font-size: 16px;
-        font-weight: bold;
-        color: #4a3a66;
-        margin: 10px 0;
-        }
-
-        .item-price {
-        font-size: 14px;
-        color: #4a3a66;
-        margin: 5px 0;
-        }
-
-        .item-card button {
-        background-color: #4a3a66;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        padding: 10px 15px;
-        margin: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-        }
-
-        .item-card button:hover {
-        background-color: #6c5597;
-        }
-
-    @media (max-width: 768px) {
-      .item-grid {
-        grid-template-columns: repeat(2, 1fr); /* 2 itens por linha no mobile */
-      }
-    }
-
-    @media (max-width: 480px) {
-      .item-grid {
-        grid-template-columns: 1fr; /* 1 item por linha em telas muito pequenas */
-      }
-    }
-    </style>
-
-</head>
-
-<body ng-controller="MainController">
+<body ng-controller="presentes">
 
     <div class="container">
         <div class="header">
@@ -130,10 +24,10 @@
         </div>
     </div>
 
-
     <script>
-        var app = angular.module('giftApp', []);
-        app.controller('MainController', function($scope, $window) {
+    var app = angular.module('familiasalle', []);
+
+    app.controller('presentes', function($scope, $window) {
         $scope.items = [
             {
             id: 1,
@@ -182,7 +76,6 @@
         };
         });
     </script>
-    
-</body>
 
+</body>
 </html>
