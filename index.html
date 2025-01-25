@@ -22,6 +22,14 @@
             background-color: white;
         }
 
+        .menu-container {
+            max-width: 100%;
+            margin: 0 auto;
+            text-align: center;
+            display: flex;
+            justify-content: center; /* Centraliza no eixo vertical */
+        }
+
         .text-container {
             max-width: 100%;
             margin: 0 auto;
@@ -110,14 +118,17 @@
             border-radius: 8px;
         }
         .items-title {
-            font-size: 12px;
+            display: flex;
+            justify-content: center;  /* Centraliza horizontalmente */
+            align-items: center;      /* Centraliza verticalmente */
+            font-size: 14px;
             font-weight: 600;
             color: #4a3a66;
             height: 40px;
             margin: 10px 0;
         }
         .items-price {
-            font-size: 14px;
+            font-size: 16px;
             font-weight: 600;
             color: #4a3a66;
             height: 20px;
@@ -126,7 +137,7 @@
         .items-card button {
             background-color: #4a3a66;
             color: white;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: 600;
             border: none;
             border-radius: 4px;
@@ -142,7 +153,7 @@
         @media (max-width: 768px) {
 
             .text-header h1 {
-            font-size: 26px;
+                font-size: 26px;
             }
             .text-header h2 {
                 font-size: 22px;
@@ -156,10 +167,19 @@
             .items-grid {
                 grid-template-columns: repeat(2, 1fr); /* 2 itens por linha no mobile */
             }
-            .items-title {
-                height: 90px;
+            .items-card {
+                padding: 10px;
             }
-
+            .items-title {
+                font-size: 14px;
+                height: 70px;
+            }
+            .items-price {
+                font-size: 16px;
+            }
+            .items-card button {
+                width: 90%;
+            }
         }
 
         @media (max-width: 480px) {
@@ -182,10 +202,19 @@
             .items-grid {
                 grid-template-columns: repeat(2, 1fr); /* 2 itens por linha no mobile */
             }
-            .items-title {
-                height: 90px;
+            .items-card {
+                padding: 10px;
             }
-            
+            .items-title {
+                font-size: 14px;
+                height: 70px;
+            }
+            .items-price {
+                font-size: 16px;
+            }
+            .items-card button {
+                width: 90%;
+            }
         }
         
     </style>
@@ -193,39 +222,14 @@
 
 <body ng-controller="presentes">
 
-    <div id ="Instruções" class="text-container" style="background-color: white;">
-
-        <div class="text-header">
-
-            <h2>INSTRUÇÕES</h2>
-
-            <p>Provedores de pagamento online cobram taxas para geração de boletos e cobrança de
-                pagamentos, por isso, ficaríamos muito gratos se dessem preferência ao pagamento por 
-                PIX. Também recomendamos o uso do PIX caso não encontre
-                nenhum presente dentro do seu orçamento.
-            </p>
-
-            <h3>Chave PIX da Noiva: 089.203.359-23</h3>
-
-            <p>Ao escolher um presente, basta clicar selecionar a forma de pagamento desejada (PIX ou CREDITO) 
-                e você será direcionado ao link de pagamento. Use o menu abaixo para escolher 
-                qual categoria de presente deseja navegar:
-            </p>
-            
-            <div>
-                <button ng-repeat="c in categories" ng-click="goToSec(c.category)">{{c.category}}</button>
-            </div>
-
-        </div>
-
-    </div>
-
     <div id ="ListaDePresentes" class="text-container" style="background-color: #f6f0f8;">
 
         <div class="text-header">
             <h1>Lista de Presentes Virtual</h1>
             <p>Para nós o mais importante é sua presença. Mas caso queira nos mimar com um presente, nessa página você poderá encontrar nossa lista.</p>
+            <img src="images/logo.png" alt="Logo" style="width: 100px; height: 90px;">
         </div>
+
     </div>
 
     <div id ="Instruções" class="text-container" style="background-color: white;">
@@ -263,16 +267,29 @@
         <div class="items-grid">
     
             <div class="items-card" ng-repeat="i in items | filter: { category: c.category }" ng-style="{ 'background-color': c.gift_card_color }">
-                <img ng-src="{{i.image}}" alt="{{i.title}}">
+                
+                
+                <img ng-src="{{i.image}}" alt="{{i.title}}" style="align-self: flex-start;">
+                
                 <p class="items-title">{{i.title}}</p>
                 <p class="items-price">R$ {{i.price}}</p>
                 <button ng-click="goToSite(i.pix)">PIX</button>
                 <button ng-click="goToSite(i.credit)">CREDITO</button>
+
             </div>
 
         </div>
 
         <button ng-click="goToSec('ListaDePresentes')">VOLTAR AO TOPO</button>
+
+    </div>
+
+    <div id ="Fim" class="text-container" style="background-color: #f6f0f8;">
+
+        <div class="text-header">
+            <h1>Muito obrigado!</h1>
+            <img src="images/logo.png" alt="Logo" style="width: 100px; height: 90px;">
+        </div>
 
     </div>
 
