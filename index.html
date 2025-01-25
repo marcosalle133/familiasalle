@@ -11,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@200&display=swap" rel="stylesheet">
     
     <style>
+
         body {
             font-family: 'Work Sans', sans-serif;
             font-weight: 200; /* Extra Light */
@@ -19,81 +20,120 @@
             background-color: white;
         }
 
-        .container {
+        .text-container {
             max-width: 100%;
             margin: 0 auto;
-            padding: 20px 20px 20px;
+            text-align: center;
+            display: flex;
+            justify-content: center; /* Centraliza no eixo vertical */
+        }
+        .text-header {
+            margin-bottom: 30px;
+            width: 80%;
+        }
+        .text-header h1 {
+            font-size: 32px;
+            color: #5e4c7b;
+        }
+        .text-header h2 {
+            font-size: 26px;
+            color: #5e4c7b;
+        }
+        .text-header h3 {
+            font-size: 18px;
+            color: #5e4c7b;
+        }
+        .text-header p {
+            font-size: 16px;
+            font-weight: 600;
+            color:  #5e4c7b;
+        }
+        .text-header button {
+            background-color: #f6f0f8;
+            color: #4a3a66;
+            font-size: 12px;
+            font-weight: 500;
+            border: 1px solid #4a3a66;
+            border-radius: 4px;
+            padding: 10px 15px;
+            margin: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .text-header button:hover {
+            background-color: #6c5597;
+        }
+
+        .item-container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 20px 80px 20px;
             text-align: center;
         }
-
-        .container h1 {
-            font-size: 24px;
+        .item-container h1 {
+            font-size: 26px;
             color: #5e4c7b;
+            padding-bottom: 20px;
         }
-
-        .header {
-            margin-bottom: 30px;
+        .item-container button {
+            background-color: transparent;
+            color: #4a3a66;
+            font-size: 12px;
+            font-weight: 500;
+            border: 1px solid #4a3a66;
+            border-radius: 4px;
+            padding: 10px 15px;
+            margin-top: 30px;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
-
-        .header h1 {
-            font-size: 24px;
-            color: #5e4c7b;
+        .item-container button:hover {
+            background-color: #6c5597;
         }
-
-        .header p {
-            font-size: 16px;
-            color: #7a6d92;
-        }
-
-        .item-grid {
+        .items-grid {
             display: grid;
-            grid-template-columns: repeat(5, 1fr); /* 6 itens por linha */
-            gap: 10px;
+            grid-template-columns: repeat(4, 1fr); /* 6 itens por linha */
+            gap: 15px;
+            margin: 0 auto;
             justify-content: center;
         }
-
-        .item-card {
+        .items-card {
             border-radius: 8px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             padding: 15px;
             text-align: center;
         }
-
-        .item-card img {
-            max-width: 100%;
+        .items-card img {
+            max-width: 80%;
             border-radius: 8px;
         }
-
-        .item-title {
+        .items-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: #4a3a66;
+            height: 40px;
+            margin: 10px 0;
+        }
+        .items-price {
             font-size: 14px;
             font-weight: 600;
             color: #4a3a66;
-            height: 50px;
-            margin: 10px 0;
-        }
-
-        .item-price {
-            font-size: 16px;
-            font-weight: 700;
-            color: #4a3a66;
-            height: 30px;
+            height: 20px;
             margin: 5px 0;
         }
-
-        .item-card button {
+        .items-card button {
             background-color: #4a3a66;
             color: white;
-            font-size: 14px;
+            font-size: 12px;
             font-weight: 600;
             border: none;
             border-radius: 4px;
             padding: 10px 15px;
-            margin: 0px;
+            margin: 5px;
             cursor: pointer;
             transition: background-color 0.3s;
         }
-
-        .item-card button:hover {
+        .items-card button:hover {
             background-color: #6c5597;
         }
 
@@ -114,33 +154,62 @@
 
 <body ng-controller="presentes">
 
-    <div class="container" style="background-color: #f6f0f8;">
+    <div id ="ListaDePresentes" class="text-container" style="background-color: #f6f0f8;">
 
-        <div class="header">
-        <h1>Chave PIX do Noivo: 085.600.079-54</h1>
-        <p>Escolha o presente e clique no botão correspondente para realizar a compra ou pagar via PIX.</p>
+        <div class="text-header">
+            <h1>Lista de Presentes Virtual</h1>
+            <p>Para nós o mais importante é sua presença. Mas caso queira nos mimar com um presente, nessa página você poderá encontrar nossa lista.</p>
         </div>
     </div>
 
-    <div class="container" style="background-color: white;">
+    <div id ="Instruções" class="text-container" style="background-color: white;">
 
-        <div class="header">
-        <h1>Chave PIX do Noivo: 085.600.079-54</h1>
-        <p>Escolha o presente e clique no botão correspondente para realizar a compra ou pagar via PIX.</p>
+        <div class="text-header">
+
+            <h2>INSTRUÇÕES</h2>
+
+            <p>Essa página tem como intuito guiar os convidados a respeito dos presentes de casamento.
+                Como os provedores de pagamento online cobram taxas para geração de boletos e cobrança de
+                pagamentos, ficaríamos muito gratos se dessem preferência a transferir o valor do presente
+                por PIX diretamente para os noivos. Também recomendamos o uso do PIX caso não encontre
+                nenhum presente na faixa de preço desejado.
+            </p>
+
+            <h3>Chave PIX da Noiva: 089.203.359-23</h3>
+
+            <p>A seguir, você encontrará um lista com todas as opções de presentes disponíveis, para 
+                selecionar um, basta clicar selecionar a forma de pagamento desejada (PIX ou CREDITO) 
+                e você será direcionado ao link de pagamento correpondente. Use o menu abaixo para escolher 
+                qual categoria de presente deseja navegar:
+            </p>
+            
+            <div>
+                <button ng-repeat="c in categories" ng-click="goToSec(c.category)">{{c.category}}</button>
+            </div>
+
         </div>
+
     </div>
 
-    
-    <div class="container" ng-repeat="c in categories" ng-style="{ 'background-color': c.background_color }">
+    <div class="item-container" ng-repeat="c in categories" ng-style="{ 'background-color': c.background_color }" ng-attr-id="{{ c.category }}">
+        
         <h1>{{c.category}}</h1>
-        <div class="item-grid">
-        <div class="item-card" ng-repeat="i in items | filter: { category: c.category }" ng-style="{ 'background-color': c.gift_card_color }">
-            <img ng-src="{{i.image}}" alt="{{i.title}}">
-            <p class="item-title">{{i.title}}</p>
-            <p class="item-price">R$ {{i.price}}</p>
-            <button ng-click="goTo(i.pix)">PIX</button>
-            <button ng-click="goTo(i.credit)">CREDITO</button>
+
+
+        <div class="items-grid">
+    
+            <div class="items-card" ng-repeat="i in items | filter: { category: c.category }" ng-style="{ 'background-color': c.gift_card_color }">
+                <img ng-src="{{i.image}}" alt="{{i.title}}">
+                <p class="items-title">{{i.title}}</p>
+                <p class="items-price">R$ {{i.price}}</p>
+                <button ng-click="goToSite(i.pix)">PIX</button>
+                <button ng-click="goToSite(i.credit)">CREDITO</button>
+            </div>
+
         </div>
+
+        <button ng-click="goToSec('ListaDePresentes')">VOLTAR AO TOPO</button>
+           
 
     </div>
 
@@ -283,8 +352,12 @@
 
             ];
 
-            $scope.goTo = function(url) {
+            $scope.goToSite = function(url) {
                 $window.open(url, "_blank");
+            };
+
+            $scope.goToSec = function(sec) {
+                window.location.href = "#" + sec;
             };
 
         });
