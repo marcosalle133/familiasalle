@@ -5,11 +5,13 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
 
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Presentes</title>
+    <link rel="icon" href="images/logo_bw.png" type="image/png">
+
     <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@200&display=swap" rel="stylesheet">
-    
     <style>
 
         body {
@@ -138,30 +140,85 @@
         }
 
         @media (max-width: 768px) {
+
+            .text-header h1 {
+            font-size: 26px;
+            }
+            .text-header h2 {
+                font-size: 22px;
+            }
+            .item-container {
+                padding: 20px 10px 20px;
+            }
+            .item-container h1 {
+                font-size: 22px;
+            }
             .items-grid {
                 grid-template-columns: repeat(2, 1fr); /* 2 itens por linha no mobile */
             }
             .items-title {
                 height: 90px;
             }
+
         }
 
         @media (max-width: 480px) {
             /* .item-grid {
                 grid-template-columns: 1fr; 
             } */
+
+            .text-header h1 {
+            font-size: 26px;
+            }
+            .text-header h2 {
+                font-size: 22px;
+            }
+            .item-container {
+                padding: 20px 10px 20px;
+            }
+            .item-container h1 {
+                font-size: 22px;
+            }
             .items-grid {
                 grid-template-columns: repeat(2, 1fr); /* 2 itens por linha no mobile */
             }
             .items-title {
                 height: 90px;
             }
+            
         }
         
     </style>
 </head>
 
 <body ng-controller="presentes">
+
+    <div id ="Instruções" class="text-container" style="background-color: white;">
+
+        <div class="text-header">
+
+            <h2>INSTRUÇÕES</h2>
+
+            <p>Provedores de pagamento online cobram taxas para geração de boletos e cobrança de
+                pagamentos, por isso, ficaríamos muito gratos se dessem preferência ao pagamento por 
+                PIX. Também recomendamos o uso do PIX caso não encontre
+                nenhum presente dentro do seu orçamento.
+            </p>
+
+            <h3>Chave PIX da Noiva: 089.203.359-23</h3>
+
+            <p>Ao escolher um presente, basta clicar selecionar a forma de pagamento desejada (PIX ou CREDITO) 
+                e você será direcionado ao link de pagamento. Use o menu abaixo para escolher 
+                qual categoria de presente deseja navegar:
+            </p>
+            
+            <div>
+                <button ng-repeat="c in categories" ng-click="goToSec(c.category)">{{c.category}}</button>
+            </div>
+
+        </div>
+
+    </div>
 
     <div id ="ListaDePresentes" class="text-container" style="background-color: #f6f0f8;">
 
@@ -216,7 +273,6 @@
         </div>
 
         <button ng-click="goToSec('ListaDePresentes')">VOLTAR AO TOPO</button>
-           
 
     </div>
 
