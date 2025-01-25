@@ -137,15 +137,28 @@
             background-color: #6c5597;
         }
 
-        @media (max-width: 768px) {
+         @media (max-width: 768px) {
             .item-grid {
                 grid-template-columns: repeat(2, 1fr); /* 2 itens por linha no mobile */
+            }
+            .items-title {
+                font-size: 12px;
+                font-weight: 600;
+                color: #4a3a66;
+                height: 80px;
+                margin: 10px 0;
             }
         }
 
         @media (max-width: 480px) {
+            /* .item-grid {
+                grid-template-columns: 1fr; 
+            } */
             .item-grid {
-                grid-template-columns: 1fr; /* 1 item por linha em telas muito pequenas */
+                grid-template-columns: repeat(2, 1fr); /* 2 itens por linha no mobile */
+            }
+            .items-title {
+                height: 80px;
             }
         }
         
