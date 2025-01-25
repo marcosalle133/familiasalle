@@ -8,170 +8,289 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Presentes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@200&display=swap" rel="stylesheet">
+    
     <style>
         body {
-        font-family: Arial, sans-serif;
-        background-color: #f8f5fa;
-        margin: 0;
-        padding: 0;
+            font-family: 'Work Sans', sans-serif;
+            font-weight: 200; /* Extra Light */
+            margin: 0;
+            padding: 0;
+            background-color: white;
         }
 
         .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
-        text-align: center;
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 20px 20px 20px;
+            text-align: center;
+        }
+
+        .container h1 {
+            font-size: 24px;
+            color: #5e4c7b;
         }
 
         .header {
-        margin-bottom: 30px;
+            margin-bottom: 30px;
         }
 
         .header h1 {
-        font-size: 24px;
-        color: #5e4c7b;
+            font-size: 24px;
+            color: #5e4c7b;
         }
 
         .header p {
-        font-size: 16px;
-        color: #7a6d92;
+            font-size: 16px;
+            color: #7a6d92;
         }
 
         .item-grid {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr); /* 4 itens por linha */
-        gap: 20px;
-        justify-content: center;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* 6 itens por linha */
+            gap: 10px;
+            justify-content: center;
         }
 
         .item-card {
-        background-color: white;
-        border-radius: 8px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        padding: 15px;
-        text-align: center;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            text-align: center;
         }
 
         .item-card img {
-        max-width: 100%;
-        border-radius: 8px;
+            max-width: 100%;
+            border-radius: 8px;
         }
 
         .item-title {
-        font-size: 16px;
-        font-weight: bold;
-        color: #4a3a66;
-        margin: 10px 0;
+            font-size: 14px;
+            font-weight: 600;
+            color: #4a3a66;
+            height: 50px;
+            margin: 10px 0;
         }
 
         .item-price {
-        font-size: 14px;
-        color: #4a3a66;
-        margin: 5px 0;
+            font-size: 16px;
+            font-weight: 700;
+            color: #4a3a66;
+            height: 30px;
+            margin: 5px 0;
         }
 
         .item-card button {
-        background-color: #4a3a66;
-        color: white;
-        border: none;
-        border-radius: 4px;
-        padding: 10px 15px;
-        margin: 5px;
-        cursor: pointer;
-        transition: background-color 0.3s;
+            background-color: #4a3a66;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 15px;
+            margin: 0px;
+            cursor: pointer;
+            transition: background-color 0.3s;
         }
 
         .item-card button:hover {
-        background-color: #6c5597;
+            background-color: #6c5597;
         }
 
         @media (max-width: 768px) {
-        .item-grid {
-            grid-template-columns: repeat(2, 1fr); /* 2 itens por linha no mobile */
-        }
+            .item-grid {
+                grid-template-columns: repeat(2, 1fr); /* 2 itens por linha no mobile */
+            }
         }
 
         @media (max-width: 480px) {
-        .item-grid {
-            grid-template-columns: 1fr; /* 1 item por linha em telas muito pequenas */
+            .item-grid {
+                grid-template-columns: 1fr; /* 1 item por linha em telas muito pequenas */
+            }
         }
-        }
+        
     </style>
 </head>
 
-
 <body ng-controller="presentes">
 
-    <div class="container">
+    <div class="container" style="background-color: #f6f0f8;">
+
         <div class="header">
         <h1>Chave PIX do Noivo: 085.600.079-54</h1>
         <p>Escolha o presente e clique no botão correspondente para realizar a compra ou pagar via PIX.</p>
         </div>
+    </div>
 
-        <h2>ITENS DE CASA</h2>
-        <div class="item-grid">
-        <div class="item-card" ng-repeat="item in items">
-            <img ng-src="{{item.image}}" alt="{{item.title}}">
-            <p class="item-title">{{item.title}}</p>
-            <p class="item-price">R$ {{item.price}}</p>
-            <button ng-click="goTo(item.pixLink)">P{{item.id}}</button>
-            <button ng-click="goTo(item.cardLink)">C{{item.id}}</button>
-        </div>
+    <div class="container" style="background-color: white;">
+
+        <div class="header">
+        <h1>Chave PIX do Noivo: 085.600.079-54</h1>
+        <p>Escolha o presente e clique no botão correspondente para realizar a compra ou pagar via PIX.</p>
         </div>
     </div>
 
+    
+    <div class="container" ng-repeat="c in categories" ng-style="{ 'background-color': c.background_color }">
+        <h1>{{c.category}}</h1>
+        <div class="item-grid">
+        <div class="item-card" ng-repeat="i in items | filter: { category: c.category }" ng-style="{ 'background-color': c.gift_card_color }">
+            <img ng-src="{{i.image}}" alt="{{i.title}}">
+            <p class="item-title">{{i.title}}</p>
+            <p class="item-price">R$ {{i.price}}</p>
+            <button ng-click="goTo(i.pix)">PIX</button>
+            <button ng-click="goTo(i.credit)">CREDITO</button>
+        </div>
+
+    </div>
+
     <script>
-    var app = angular.module('familiasalle', []);
 
-    app.controller('presentes', function($scope, $window) {
-        $scope.items = [
-            {
-            id: 1,
-            title: "Kit Tábuas De Cozinha Em Madeira Tramontina - 2 Peças",
-            price: "60,00",
-            image: "images/2.png",
-            pixLink: "https://pagamento.sejaefi.com.br/b1bed5e7-1b00-467c-935b-e3ac462b9c98",
-            cardLink: "https://nubank.com.br/cobrar/45fat/6792f20e-3ba2-4a17-99dc-907cc8f4e1b1",
-            },
-            {
-            id: 2,
-            title: "Jogo De Copos Nadir Aruba 465ML - 06 Peças",
-            price: "60,00",
-            image: "images/3.png",
-            pixLink: "https://pagamento.sejaefi.com.br/e3e57588-5a45-41f9-80d9-534022336bb7",
-            cardLink: "https://nubank.com.br/cobrar/45fat/6792f20e-3ba2-4a17-99dc-907cc8f4e1b1",
-            },
-            {
-            id: 3,
-            title: "Jogo De Xícaras De Café Bee 8 Peças Hauskraft - 80ml",
-            price: "70,00",
-            image: "images/4.png",
-            pixLink: "https://nubank.com.br/cobrar/45fat/6792f265-a769-4208-868d-1550fcc32bd3",
-            cardLink: "https://pagamento.sejaefi.com.br/57ba4336-d713-4ce2-980e-c532e695f459"
-            },
-            {
-            id: 4,
-            title: "Kit De Banheiro Cerâmica Reactive Lyor",
-            price: "70,00",
-            image: "images/5.png",
-            pixLink: "https://example.com/pix4",
-            cardLink: "https://example.com/card4"
-            },
-            {
-            id: 5,
-            title: "Novo Item - Exemplo",
-            price: "80,00",
-            image: "images/6.png",
-            pixLink: "https://example.com/pix5",
-            cardLink: "https://example.com/card5"
-            }
-        ];
+        var app = angular.module('familiasalle', []);
 
-        $scope.goTo = function(url) {
-            $window.open(url, "_blank");
-        };
+        app.controller('presentes', function($scope, $window) {
+            
+            $scope.categories = [
+                {category: 'ITENS DE CASA', background_color: '#F6F0F8', gift_card_color: 'white'},
+                {category: 'ELETRODOMÉSTICOS', background_color: 'white', gift_card_color: '#F6F0F8'},
+                {category: 'OFERTAS ESPECIAIS', background_color: '#F6F0F8', gift_card_color: 'white'},
+                {category: 'LUA DE MEL', background_color: 'white', gift_card_color: '#F6F0F8'},
+                {category: 'DIA-A-DIA', background_color: '#F6F0F8', gift_card_color: 'white'},
+                {category: 'DECORAÇÃO', background_color: 'white', gift_card_color: '#F6F0F8'},
+            ]
+            
+            
+            $scope.items = [
+
+                {id: 2, category: 'ITENS DE CASA', title: 'Kit Tábuas De Cozinha Em Madeira Tramontina - 2 Peças', price: '60,00', image: 'images/2.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f20e-3ba2-4a17-99dc-907cc8f4e1b1', credit: 'https://pagamento.sejaefi.com.br/b1bed5e7-1b00-467c-935b-e3ac462b9c98'},
+                {id: 3, category: 'ITENS DE CASA', title: 'Jogo De Copos Nadir Aruba 465Ml - 06 Peças', price: '60,00', image: 'images/3.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f20e-3ba2-4a17-99dc-907cc8f4e1b1', credit: 'https://pagamento.sejaefi.com.br/e3e57588-5a45-41f9-80d9-534022336bb7'},
+                {id: 4, category: 'ITENS DE CASA', title: 'Jogo De Xícaras De Café Bee 8 Peças Hauskraft - 80ml', price: '70,00', image: 'images/4.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f265-a769-4208-868d-1550fcc32bd3', credit: 'https://pagamento.sejaefi.com.br/57ba4336-d713-4ce2-980e-c532e695f459'},
+                {id: 5, category: 'ITENS DE CASA', title: 'Kit De Banheiro Cerâmica Reactive Lyor', price: '70,00', image: 'images/5.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f265-a769-4208-868d-1550fcc32bd3', credit: 'https://pagamento.sejaefi.com.br/bb8f046e-b2f9-406c-bbbc-333ee0343edd'},
+                {id: 6, category: 'ITENS DE CASA', title: 'Forma De Bolo Quadrada Silicone Havan Casa - 24cm', price: '80,00', image: 'images/6.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f2b9-0a09-4285-84ba-d21d70ca68a2', credit: 'https://pagamento.sejaefi.com.br/b97253af-7dde-4b33-bd4c-edbfc1054555'},
+                {id: 7, category: 'ITENS DE CASA', title: 'Mop Com Esponja Havan Casa - Verde e Cinza', price: '90,00', image: 'images/7.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f30a-7b88-4c9c-a284-ce801cb130c9', credit: 'https://pagamento.sejaefi.com.br/e74a2543-acaa-4416-a83e-864c3e9ed0e4'},
+                {id: 8, category: 'ITENS DE CASA', title: 'Galheteiros Com Suporte Havan Casa 4 Peças - Vidro', price: '90,00', image: 'images/8.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f30a-7b88-4c9c-a284-ce801cb130c9', credit: 'https://pagamento.sejaefi.com.br/0e2732f7-9397-4836-aee0-76ee3a2faac9'},
+                {id: 9, category: 'ITENS DE CASA', title: 'Lixeira Redonda Havan Casa 3 Litros - Inox', price: '90,00', image: 'images/9.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f30a-7b88-4c9c-a284-ce801cb130c9', credit: 'https://pagamento.sejaefi.com.br/1cb67ffe-0675-4dfe-bbef-43960873a9c9'},
+                {id: 10, category: 'ITENS DE CASA', title: 'Jogo de 6 Taças de Vidro + Conjunto de bowls de 340ml', price: '90,00', image: 'images/10.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f30a-7b88-4c9c-a284-ce801cb130c9', credit: 'https://pagamento.sejaefi.com.br/632bf3fe-0eb8-4be8-82cb-40d09a7de125'},
+                {id: 11, category: 'ITENS DE CASA', title: 'Escorredor De Louças Eco Design Black Wide Arthi 38,5Cm - Preto', price: '100,00', image: 'images/11.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f36e-06f6-4c1a-8836-93cb8efd2291', credit: 'https://pagamento.sejaefi.com.br/5c34198d-53bb-471c-97ab-bb75548d04a9'},
+                {id: 12, category: 'ITENS DE CASA', title: 'Fervedor Alumínio Com Revestimento Cerâmico De Indução Lyor 1,7 Litros', price: '100,00', image: 'images/12.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f36e-06f6-4c1a-8836-93cb8efd2291', credit: 'https://pagamento.sejaefi.com.br/28933759-6ba7-499f-ab7d-aac787513f8f'},
+                {id: 13, category: 'ITENS DE CASA', title: 'Varal De Chão Com Abas Slim Mor 1,44M - Branco', price: '100,00', image: 'images/13.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f36e-06f6-4c1a-8836-93cb8efd2291', credit: 'https://pagamento.sejaefi.com.br/209a32a0-e7d0-4e41-b2f2-2974dfd958e9'},
+                {id: 14, category: 'ITENS DE CASA', title: 'Jogo de 6 Taças de Vidro Diamond Fume para Vinho e Água 340ml', price: '100,00', image: 'images/14.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f36e-06f6-4c1a-8836-93cb8efd2291', credit: 'https://pagamento.sejaefi.com.br/6e03185a-6b38-4492-864e-5060c2e5c2f0'},
+                {id: 15, category: 'ITENS DE CASA', title: 'Chaleira Com Apito Aço Inox Havan Casa 2,5 Litros - Espelhada', price: '120,00', image: 'images/15.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f40e-53e3-43d2-8243-1c36eb90e146', credit: 'https://pagamento.sejaefi.com.br/bc081781-1df8-4b35-9a70-69ac21003449'},
+                {id: 16, category: 'ITENS DE CASA', title: 'Garrafa Térmica Rolha Lumina Clean Termolar - 1L', price: '120,00', image: 'images/16.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f40e-53e3-43d2-8243-1c36eb90e146', credit: 'https://pagamento.sejaefi.com.br/8483a28c-3ca8-4a57-99b8-f683eabfc16e'},
+                {id: 17, category: 'ITENS DE CASA', title: 'Frigideira Antiaderente Norma Fracalanza 24Cm', price: '130,00', image: 'images/17.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f457-1fbc-4f51-8c11-cccc442b9440', credit: 'https://pagamento.sejaefi.com.br/e2bd4926-8aa2-40af-939e-450845948f88'},
+                {id: 18, category: 'ITENS DE CASA', title: 'Panela De Indução Ceramic Onix Class Home 1,87 Litros - Onix', price: '130,00', image: 'images/18.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f457-1fbc-4f51-8c11-cccc442b9440', credit: 'https://pagamento.sejaefi.com.br/28c4615d-22a2-4b3a-8ba1-2657127b7c87'},
+                {id: 19, category: 'ITENS DE CASA', title: 'Jogo De Facas Plenus 05 Peças E Suporte Madeira Tramontina', price: '130,00', image: 'images/19.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f457-1fbc-4f51-8c11-cccc442b9440', credit: 'https://pagamento.sejaefi.com.br/09d49788-f16c-4b6f-9065-fcb038c3b264'},
+                {id: 20, category: 'ITENS DE CASA', title: 'Forma Retangular Com Alça E Grelha Havan Casa - Cinza', price: '140,00', image: 'images/20.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f4a1-4d85-4b9a-98f4-9d8788b1dc58', credit: 'https://pagamento.sejaefi.com.br/7fc78d94-8f7f-42f9-a7e9-f07ffb1c262d'},
+                {id: 21, category: 'ITENS DE CASA', title: 'Pipoqueira Alumínio Starflon Max Loreto Tramontina 3,5 Litros', price: '140,00', image: 'images/21.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f4a1-4d85-4b9a-98f4-9d8788b1dc58', credit: 'https://pagamento.sejaefi.com.br/3f9d65fa-ec5a-493a-b1f9-68b194969c6b'},
+                {id: 22, category: 'ITENS DE CASA', title: 'Secador De Salada Organizadora Clear Fresh Ou - 5,5L', price: '140,00', image: 'images/22.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f4a1-4d85-4b9a-98f4-9d8788b1dc58', credit: 'https://pagamento.sejaefi.com.br/748b12fd-28ae-4859-87e2-faef7b92b332'},
+                {id: 23, category: 'ITENS DE CASA', title: 'Conjunto de Bowls Tigelas de Inox com Tampa Plástica Electrolux', price: '150,00', image: 'images/23.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f4e0-1dc2-4339-88ee-f60b43b7a68e', credit: 'https://pagamento.sejaefi.com.br/ad8f41cb-11c5-4ab4-98f7-b7ae2195de5a'},
+                {id: 24, category: 'ITENS DE CASA', title: 'Aparelho De Jantar Opaline Pétala Com Taças Nadir 16 Peças - Branco', price: '150,00', image: 'images/24.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f4e0-1dc2-4339-88ee-f60b43b7a68e', credit: 'https://pagamento.sejaefi.com.br/068cb6f8-d10e-4c35-9ff0-23540cc8e2f1'},
+                {id: 25, category: 'ITENS DE CASA', title: 'Jogo de 6 Taças Xtra Vinho Branco Cristal 360ml A23,5cm', price: '160,00', image: 'images/25.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f52b-8fb5-491d-8761-702a83346a95', credit: 'https://pagamento.sejaefi.com.br/637e23a5-dfed-4551-98e7-70aa0b7b1f75'},
+                {id: 26, category: 'ITENS DE CASA', title: 'Kit C/ 4 Assadeiras Em Vidro Refratário Pode Levar Ao Forno', price: '160,00', image: 'images/26.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f52b-8fb5-491d-8761-702a83346a95', credit: 'https://pagamento.sejaefi.com.br/e196d410-2583-421a-af63-bde49941fdf4'},
+                {id: 27, category: 'ITENS DE CASA', title: 'Mesa De Passar Com Porta Ferro Utimil 1,20 Metros', price: '200,00', image: 'images/27.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f572-12d0-44f2-b62c-a0f6732895fc', credit: 'https://pagamento.sejaefi.com.br/082eb2de-a1ca-49bc-b920-d817aabe2b95'},
+                {id: 28, category: 'ITENS DE CASA', title: 'Wok Fundo Triplo De Indução Astro Silicone Tramontina - Aço Inox', price: '220,00', image: 'images/28.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f5bd-a061-4de2-8022-b527871bcd9c', credit: 'https://pagamento.sejaefi.com.br/7beda4b6-33e5-4897-bc55-a8e864ef7b9a'},
+                {id: 29, category: 'ITENS DE CASA', title: 'Wok Paris Tramontina 36Cm - Vermelho', price: '230,00', image: 'images/29.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f60d-0e49-4b78-bbf2-9728e906d794', credit: 'https://pagamento.sejaefi.com.br/db3ea438-d200-4076-9e38-802eda0d85f3'},
+                {id: 30, category: 'ITENS DE CASA', title: 'Caçarola Com Tampa Indução Havan Casa 20Cm - Granito', price: '250,00', image: 'images/30.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f646-c669-4f69-a7f1-7870024e98ed', credit: 'https://pagamento.sejaefi.com.br/51e414ac-e7c4-4a67-ab66-32de273914b6'},
+                {id: 31, category: 'ITENS DE CASA', title: 'Suqueira Com Pé De Cristal Bangkok 4,5L', price: '250,00', image: 'images/31.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f646-c669-4f69-a7f1-7870024e98ed', credit: 'https://pagamento.sejaefi.com.br/76d51260-cd5d-43b9-a5d7-49d7af052c0b'},
+                {id: 32, category: 'ITENS DE CASA', title: 'Aparelho De Jantar Biona By Havan Casa 20 Peças - New Bella', price: '300,00', image: 'images/32.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f6b8-25c5-495d-8e93-578743a7a8b0', credit: 'https://pagamento.sejaefi.com.br/c6a75081-af8f-4681-8401-a1a889e48959'},
+                {id: 33, category: 'ITENS DE CASA', title: 'Panela De Pressão Super Indução Brinox 4,2 Litros - Preto', price: '320,00', image: 'images/33.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f702-ba53-46b4-b125-36746aec0800', credit: 'https://pagamento.sejaefi.com.br/49eb37a9-8978-4f17-be79-5ade74966977'},
+                {id: 34, category: 'ITENS DE CASA', title: 'Caçarola Aço Inox Astro De Indução Tramontina 8,9 Litros - Rasa', price: '400,00', image: 'images/34.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f880-47a4-4999-9879-df79b6f7a926', credit: 'https://pagamento.sejaefi.com.br/9dc659ec-b21f-4f36-a03f-3428c3fe50e6'},
+                {id: 35, category: 'ITENS DE CASA', title: 'Bowl de Servir Oval Le Creuset', price: '410,00', image: 'images/35.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f8c9-4178-4821-a5a4-9ab90a8eac42', credit: 'https://pagamento.sejaefi.com.br/8ee9fa19-8ede-4bfe-9072-61452d4eb996'},
+                {id: 36, category: 'ITENS DE CASA', title: 'Bandeja redonda de vidro para servir da Godinger', price: '430,00', image: 'images/36.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f8fc-1d03-4077-a40a-b97d5061553f', credit: 'https://pagamento.sejaefi.com.br/8310d357-de19-4344-a0b6-fedbb70de63f'},
+                {id: 37, category: 'ITENS DE CASA', title: 'Estante para Livros 180cmx120cm 4 Prateleiras Seattle', price: '570,00', image: 'images/37.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f938-4e8e-4aee-af4c-ecf8cf1b9695', credit: 'https://pagamento.sejaefi.com.br/36c24ae5-507f-4b6b-ac64-7a806b8dee8d'},
+                {id: 38, category: 'ITENS DE CASA', title: 'Jogo De Panelas Elegance Indução Havan Casa 5 Pçs - Baunilha', price: '700,00', image: 'images/38.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f970-8a56-4077-aefa-43b772baa357', credit: 'https://pagamento.sejaefi.com.br/8fd38a8d-7735-4ce7-899c-6d563bf5e8fa'},
+                {id: 39, category: 'ITENS DE CASA', title: 'Kit ferramentas para o noivo consertar a pia', price: '980,00', image: 'images/39.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f9bc-613b-4b8f-88c9-2e5721938526', credit: 'https://pagamento.sejaefi.com.br/8a4ccb44-86cf-4e58-92fe-6cbe915cfe94'},
+                {id: 40, category: 'ITENS DE CASA', title: 'Faqueiro Aço Inox com Estojo de Madeira com 76 Peças - Tramontina', price: '1058,00', image: 'images/40.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f9ed-a6c2-429c-b1db-0e159897472f', credit: 'https://pagamento.sejaefi.com.br/6d822fcc-e987-4f9f-8181-d66daf03f1c1'},
+                {id: 41, category: 'ITENS DE CASA', title: 'Grelha Quadrada Signature Le Creuset', price: '1689,00', image: 'images/41.png', pix: 'https://nubank.com.br/cobrar/45fat/6792fa30-8c26-4a62-96a1-dcfd19c4d9b5', credit: 'https://pagamento.sejaefi.com.br/efea92ed-1546-427c-9ec6-893aecba0a12'},
+                {id: 42, category: 'ITENS DE CASA', title: 'Panela Sautese Holly Le Creuset', price: '2430,00', image: 'images/42.png', pix: 'https://nubank.com.br/cobrar/45fat/6792fa6a-89b8-452c-af9d-7d48b4540969', credit: 'acima do valor limite do site'},
+
+                {id: 44, category: 'ELETRODOMÉSTICOS', title: 'Chaleira Elétrica Britânia BCH02PI Prata e Preta', price: '95,00', image: 'images/44.png', pix: 'https://nubank.com.br/cobrar/45fat/6792fad6-0aeb-473e-8f49-386b0007323d', credit: 'https://pagamento.sejaefi.com.br/87c5d7fe-9684-4483-a1c1-df0347dd48e5'},
+                {id: 45, category: 'ELETRODOMÉSTICOS', title: 'Sanduicheira Electrolux ESG20 Inox Elétrica Antiaderente', price: '170,00', image: 'images/45.png', pix: 'https://nubank.com.br/cobrar/45fat/6792fb52-d36e-45a9-94ae-95d3acbd1af1', credit: 'https://pagamento.sejaefi.com.br/0ef83031-cb63-4334-b3b7-97fe37e4be87'},
+                {id: 46, category: 'ELETRODOMÉSTICOS', title: 'Torradeira Electrolux Efficient ETS10 Granite', price: '180,00', image: 'images/46.png', pix: 'https://nubank.com.br/cobrar/45fat/6792fbab-c2c1-4f3b-b60a-034c97154da6', credit: 'https://pagamento.sejaefi.com.br/cb8dcf33-6ee2-4007-85f3-f5f280da1f64'},
+                {id: 47, category: 'ELETRODOMÉSTICOS', title: 'Ferro de Passar a Vapor e a Seco Electrolux', price: '240,00', image: 'images/47.png', pix: 'https://nubank.com.br/cobrar/45fat/6792fbf3-a56b-40d4-b619-b92bcf7b158d', credit: 'https://pagamento.sejaefi.com.br/8b1eeaa4-b31e-4ab1-b241-f5209b41c998'},
+                {id: 48, category: 'ELETRODOMÉSTICOS', title: 'Processador de Alimentos 3 em 1 Electrolux EFP500', price: '250,00', image: 'images/48.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f646-c669-4f69-a7f1-7870024e98ed', credit: 'https://pagamento.sejaefi.com.br/db2b7e21-9334-43fe-8f1e-3c555b0cbfe6'},
+                {id: 49, category: 'ELETRODOMÉSTICOS', title: 'Grill Philco PGR19PI Retangular 1000W', price: '250,00', image: 'images/49.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f646-c669-4f69-a7f1-7870024e98ed', credit: 'https://pagamento.sejaefi.com.br/60825f33-27c6-4fba-ae0e-221840e32f50'},
+                {id: 50, category: 'ELETRODOMÉSTICOS', title: 'Mixer Pro Mix Philips Walita Preto Inox 400W', price: '270,00', image: 'images/50.png', pix: 'https://nubank.com.br/cobrar/45fat/6792fc35-a16c-4902-bd73-cf82739142ed', credit: 'https://pagamento.sejaefi.com.br/915295b0-7105-4445-bd7c-3d31587e6284'},
+                {id: 51, category: 'ELETRODOMÉSTICOS', title: 'Liquidificador Philips Walita Serie 5000', price: '300,00', image: 'images/51.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f6b8-25c5-495d-8e93-578743a7a8b0', credit: 'https://pagamento.sejaefi.com.br/6834c121-614f-432a-9ddf-1846e20669d3'},
+                {id: 52, category: 'ELETRODOMÉSTICOS', title: 'Cafeteira Elétrica Electrolux Experience ECM30', price: '340,00', image: 'images/52.png', pix: 'https://nubank.com.br/cobrar/45fat/6792fc8b-cd10-42e0-815e-e8281c6e9ae4', credit: 'https://pagamento.sejaefi.com.br/19795af0-e230-449f-856d-a2aad83f74a2'},
+                {id: 53, category: 'ELETRODOMÉSTICOS', title: 'Batedeira Planetária Oster OBAT641 4L 850W', price: '540,00', image: 'images/53.png', pix: 'https://nubank.com.br/cobrar/45fat/6792fcd0-9c2d-4f4f-8eb9-2b5047c14dd0', credit: 'https://pagamento.sejaefi.com.br/5bae31c1-9bc7-41db-b26a-a6e49df2b93f'},
+                {id: 54, category: 'ELETRODOMÉSTICOS', title: 'Aspirador de Pó sem Saco Electrolux 1600W', price: '620,00', image: 'images/54.png', pix: 'https://nubank.com.br/cobrar/45fat/6792fd18-1146-423b-b98a-5f4117b5db23', credit: 'https://pagamento.sejaefi.com.br/2c52aae6-de4d-4413-8a4f-9c65bd79380f'},
+                {id: 55, category: 'ELETRODOMÉSTICOS', title: 'Fritadeira Inox DiamondTech Oster 7,5L com Visor Transparente', price: '800,00', image: 'images/55.png', pix: 'https://nubank.com.br/cobrar/45fat/6792fd69-f722-4126-b65c-569c86234efc', credit: 'https://pagamento.sejaefi.com.br/c6a18283-41d7-45cd-b47b-76e72441950a'},
+                {id: 56, category: 'ELETRODOMÉSTICOS', title: 'Micro-ondas Brastemp 32 Litros com Menu Gourmet - BMS46AR', price: '870,00', image: 'images/56.png', pix: 'https://nubank.com.br/cobrar/45fat/6792fdab-37ab-4759-80d9-e25ca8bba98d', credit: 'https://pagamento.sejaefi.com.br/944208c9-49fc-42e6-bd45-b79073057e55'},
+                {id: 57, category: 'ELETRODOMÉSTICOS', title: 'Coifa de Parede Electrolux 60cm Inox', price: '900,00', image: 'images/57.png', pix: 'https://nubank.com.br/cobrar/45fat/6792fddf-646e-48fc-b85e-0b8dcd08edeb', credit: 'https://pagamento.sejaefi.com.br/5a1d3660-9de7-46ff-a0c9-d45c60f80a8d'},
+                {id: 58, category: 'ELETRODOMÉSTICOS', title: 'Forno e Fryer 25L Oster Multifunções 10', price: '1000,00', image: 'images/58.png', pix: 'https://nubank.com.br/cobrar/45fat/6792fe56-b0fe-4cbc-9cfe-56181a7d1471', credit: 'https://pagamento.sejaefi.com.br/1834e14c-fe99-4754-9072-2f18f782ffd6'},
+                {id: 59, category: 'ELETRODOMÉSTICOS', title: 'Robô Aspirador 2 em 1 Samsung Powerbot-E', price: '1340,00', image: 'images/59.png', pix: 'https://nubank.com.br/cobrar/45fat/6792fea4-c902-47c7-95b4-967d92afc17d', credit: 'https://pagamento.sejaefi.com.br/fb8e1dbf-4e01-4341-9c97-c09aa6007eda'},
+                {id: 60, category: 'ELETRODOMÉSTICOS', title: 'Fogão de Piso Electrolux de 04 Bocas Efficient - FE4GP', price: '1600,00', image: 'images/60.png', pix: 'https://nubank.com.br/cobrar/45fat/6792fee7-21d0-4445-9db3-161a584bab76', credit: 'https://pagamento.sejaefi.com.br/b02e2ba8-27ff-44c3-83a6-463c2fd152ce'},
+                {id: 61, category: 'ELETRODOMÉSTICOS', title: 'Máquina de Lavar Brastemp 13Kg Branca', price: '1890,00', image: 'images/61.png', pix: 'https://nubank.com.br/cobrar/45fat/6792ff47-ced3-4d2c-8cb6-a410aa44239f', credit: 'https://pagamento.sejaefi.com.br/d6b1c1d5-df6d-428d-8bdd-2d7e6dfc0eea'},
+                {id: 62, category: 'ELETRODOMÉSTICOS', title: 'Ar Condicionado LG Voice Inverter +IA 9000 BTU', price: '2590,00', image: 'images/62.png', pix: 'https://nubank.com.br/cobrar/45fat/6792ff8f-71af-4a14-86d1-ae214cd41e3c', credit: 'acima do valor limite do site'},
+                {id: 63, category: 'ELETRODOMÉSTICOS', title: 'Geladeira Electrolux Frost Free Inverter 410L', price: '3790,00', image: 'images/63.png', pix: 'https://nubank.com.br/cobrar/45fat/6792ffda-9e1f-41f2-abf5-94c130a37521', credit: 'acima do valor limite do site'},
+
+                {id: 65, category: 'OFERTAS ESPECIAIS', title: 'Só para não dizer que não dei nada...', price: '120,00', image: 'images/65.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f40e-53e3-43d2-8243-1c36eb90e146', credit: 'https://pagamento.sejaefi.com.br/b77e25bd-2a51-4481-9943-f2cfccd6f03c'},
+                {id: 66, category: 'OFERTAS ESPECIAIS', title: 'Vale um café da tarde na casa dos noivos', price: '240,00', image: 'images/66.png', pix: 'https://nubank.com.br/cobrar/45fat/6792fbf3-a56b-40d4-b619-b92bcf7b158d', credit: 'https://pagamento.sejaefi.com.br/d7e0ed05-619f-47b6-817f-fd5874286527'},
+                {id: 67, category: 'OFERTAS ESPECIAIS', title: 'Taxa para a noiva mirar na sua namorada na hora de jogar o buquê', price: '310,00', image: 'images/67.png', pix: 'https://nubank.com.br/cobrar/45fat/67930035-5b6f-40ad-930a-741b75861e73', credit: 'https://pagamento.sejaefi.com.br/c73050df-09d1-4fc0-80e1-31cb15873433'},
+                {id: 68, category: 'OFERTAS ESPECIAIS', title: 'Taxa para a noiva NÃO mirar na sua namorada na hora de jogar o buque', price: '3100,00', image: 'images/68.png', pix: 'https://nubank.com.br/cobrar/45fat/679300bb-121e-4e65-a36f-4f43a44ebfaa', credit: 'acima do valor limite do site'},
+                {id: 69, category: 'OFERTAS ESPECIAIS', title: 'Vale uma receita azul carimbada pela noiva', price: '10000,00', image: 'images/69.png', pix: 'https://nubank.com.br/cobrar/45fat/679300f9-4ef3-4d8e-a72e-8f210308ee36', credit: 'acima do valor limite do site'},
+
+                {id: 71, category: 'LUA DE MEL', title: 'Sunga para o noivo usar na praia', price: '100,00', image: 'images/71.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f36e-06f6-4c1a-8836-93cb8efd2291', credit: 'https://pagamento.sejaefi.com.br/64b04da5-be8a-4280-802e-aa0d76af2204'},
+                {id: 72, category: 'LUA DE MEL', title: 'Passeio pela praia do Gunga', price: '150,00', image: 'images/72.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f4e0-1dc2-4339-88ee-f60b43b7a68e', credit: 'https://pagamento.sejaefi.com.br/062aaf85-bd3e-4cec-a3de-c3f6d0256ed9'},
+                {id: 73, category: 'LUA DE MEL', title: 'Jantar romântico', price: '400,00', image: 'images/73.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f880-47a4-4999-9879-df79b6f7a926', credit: 'https://pagamento.sejaefi.com.br/f0903771-8cb7-4596-8c04-514ab7406708'},
+                {id: 74, category: 'LUA DE MEL', title: 'Diária em Maceió', price: '860,00', image: 'images/74.png', pix: 'https://nubank.com.br/cobrar/45fat/67930169-4c4f-497a-99ad-51057242bdf6', credit: 'https://pagamento.sejaefi.com.br/62586f9b-a1ce-4770-bb98-10742728ec71'},
+
+                {id: 76, category: 'DIA-A-DIA', title: 'Centro De Mesa Renda Guipir Havan Casa - Paris', price: '50,00', image: 'images/76.png', pix: 'https://nubank.com.br/cobrar/45fat/67930244-fac7-4657-a54a-683339820c07', credit: 'https://pagamento.sejaefi.com.br/1d23ad49-6f18-4c12-afbd-036231c5a117'},
+                {id: 77, category: 'DIA-A-DIA', title: 'Kit 3 Prateleiras Brancas Versáteis 20X40cm', price: '55,00', image: 'images/77.png', pix: 'https://nubank.com.br/cobrar/45fat/679302df-160b-4d69-a304-5230e8439173', credit: 'https://pagamento.sejaefi.com.br/4f138b69-e6d2-407d-92c1-8e21581df443'},
+                {id: 78, category: 'DIA-A-DIA', title: 'Protetor De Travesseiro Com Zíper + Saúde Lynel', price: '60,00', image: 'images/78.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f20e-3ba2-4a17-99dc-907cc8f4e1b1', credit: 'https://pagamento.sejaefi.com.br/67956f6c-fc33-460b-8c24-11c7ae37a09d'},
+                {id: 79, category: 'DIA-A-DIA', title: 'Luminária De Mesa Led Recarregável Taschibra', price: '60,00', image: 'images/79.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f20e-3ba2-4a17-99dc-907cc8f4e1b1', credit: 'https://pagamento.sejaefi.com.br/b8410f8e-486f-489d-8f87-bcd1a0cf5689'},
+                {id: 80, category: 'DIA-A-DIA', title: 'Saia Para Cama Box Queen Com Elástico Solecasa - Branco', price: '65,00', image: 'images/80.png', pix: 'https://nubank.com.br/cobrar/45fat/67930323-dc64-43f3-8eb0-062c3d116764', credit: 'https://pagamento.sejaefi.com.br/27650597-c429-4706-a3f3-17fb1cff0cb5'},
+                {id: 81, category: 'DIA-A-DIA', title: 'Prateleira Hexagonal Estilo Dicarlo - Pinus', price: '70,00', image: 'images/81.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f265-a769-4208-868d-1550fcc32bd3', credit: 'https://pagamento.sejaefi.com.br/820ee2c9-3d2e-4e92-b321-3e185680af37'},
+                {id: 82, category: 'DIA-A-DIA', title: 'Centro de Mesa com Pé Deli 18cm Lyor - Cristal', price: '80,00', image: 'images/82.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f2b9-0a09-4285-84ba-d21d70ca68a2', credit: 'https://pagamento.sejaefi.com.br/3b1188cb-a64c-49b8-baf9-c0ee8716d3e3'},
+                {id: 83, category: 'DIA-A-DIA', title: 'Trilho De Mesa 40X210 Cm Renda Guipir Havan', price: '80,00', image: 'images/83.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f2b9-0a09-4285-84ba-d21d70ca68a2', credit: 'https://pagamento.sejaefi.com.br/ec8bded1-f29c-4829-b7e2-c082060b024d'},
+                {id: 84, category: 'DIA-A-DIA', title: 'Protetor de Colchão King com Elástico Slip Solecasa - Branco', price: '110,00', image: 'images/84.png', pix: 'https://nubank.com.br/cobrar/45fat/67930365-5ade-48b9-8bcd-a717640b1877', credit: 'https://pagamento.sejaefi.com.br/6936bb1e-0dbf-482c-ae23-bc87fd508a62'},
+                {id: 85, category: 'DIA-A-DIA', title: 'Toalha De Mesa 2,00X 2,00M Passion Clean Döhler - Bege', price: '110,00', image: 'images/85.png', pix: 'https://nubank.com.br/cobrar/45fat/67930365-5ade-48b9-8bcd-a717640b1877', credit: 'https://pagamento.sejaefi.com.br/6b9d6aa1-ab50-4d84-839d-1fc4e74f25ca'},
+                {id: 86, category: 'DIA-A-DIA', title: 'Look da Insider para o noivo não precisar passar roupa', price: '140,00', image: 'images/86.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f4a1-4d85-4b9a-98f4-9d8788b1dc58', credit: 'https://pagamento.sejaefi.com.br/7915eec4-8203-41f9-8604-bdcd0252498a'},
+                {id: 87, category: 'DIA-A-DIA', title: 'Look da Insider para a noiva não precisar passar roupa', price: '140,00', image: 'images/87.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f4a1-4d85-4b9a-98f4-9d8788b1dc58', credit: 'https://pagamento.sejaefi.com.br/080f0ae7-1a98-4299-99eb-750ec1ade3cd'},
+                {id: 88, category: 'DIA-A-DIA', title: 'Jogo De Cama Casal 100% Algodão Royale Havan Casa 4 Peças', price: '160,00', image: 'images/88.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f52b-8fb5-491d-8761-702a83346a95', credit: 'https://pagamento.sejaefi.com.br/b0ee6bce-abd8-4535-a9d7-9320cd8898be'},
+                {id: 89, category: 'DIA-A-DIA', title: 'Jogo de Banho Karsten 4 Peças Empire Branco', price: '190,00', image: 'images/89.png', pix: 'https://nubank.com.br/cobrar/45fat/679303b4-bf89-47ac-aace-1b4afa581b1a', credit: 'https://pagamento.sejaefi.com.br/e2e2645e-10ee-4102-aae3-4007f923e1d6'},
+                {id: 90, category: 'DIA-A-DIA', title: 'Puff Decorativo Barcelona Havan Casa - Bege/Marrom', price: '200,00', image: 'images/90.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f572-12d0-44f2-b62c-a0f6732895fc', credit: 'https://pagamento.sejaefi.com.br/3ac0b8be-f2c1-478e-b1af-3ec911bb20e9'},
+                {id: 91, category: 'DIA-A-DIA', title: 'Whey e creatina pro noivo ficar fortão', price: '200,00', image: 'images/91.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f572-12d0-44f2-b62c-a0f6732895fc', credit: 'https://pagamento.sejaefi.com.br/df9363bd-c0e5-4a77-ac62-0457a19977d7'},
+                {id: 92, category: 'DIA-A-DIA', title: 'Mesa De Cabeceira Baixa 60 Cm Havan Casa - Branco', price: '250,00', image: 'images/92.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f646-c669-4f69-a7f1-7870024e98ed', credit: 'https://pagamento.sejaefi.com.br/dac2ad22-d4e4-4bb7-b98d-79b4f6c9bb03'},
+                {id: 93, category: 'DIA-A-DIA', title: 'Seis meses de assinatura da Netflix', price: '250,00', image: 'images/93.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f646-c669-4f69-a7f1-7870024e98ed', credit: 'https://pagamento.sejaefi.com.br/660a682b-fda1-4fdb-b650-fc5a49836567'},
+                {id: 94, category: 'DIA-A-DIA', title: 'Jogo de Banho Karsten Fio Penteado 5 Peças Imperial Branco', price: '280,00', image: 'images/94.png', pix: 'https://nubank.com.br/cobrar/45fat/67930407-9e8a-4ede-9b33-710042f3b850', credit: 'https://pagamento.sejaefi.com.br/037dccbb-7170-4b45-91ba-bbf00a4c542f'},
+                {id: 95, category: 'DIA-A-DIA', title: 'Kit Cabeceira Modular 6 Peças Bella Arte - Bege', price: '300,00', image: 'images/95.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f6b8-25c5-495d-8e93-578743a7a8b0', credit: 'https://pagamento.sejaefi.com.br/a1978cc4-1937-4880-ab03-3cfe1239af4c'},
+                {id: 96, category: 'DIA-A-DIA', title: 'Edredom King 100% Poliéster Elegance Hedrons - Branco', price: '300,00', image: 'images/96.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f6b8-25c5-495d-8e93-578743a7a8b0', credit: 'https://pagamento.sejaefi.com.br/d5d55d7e-b3d4-4e85-aa89-5779bd4a9ad1'},
+                {id: 97, category: 'DIA-A-DIA', title: 'Kit pantufa para visitas', price: '350,00', image: 'images/97.png', pix: 'https://nubank.com.br/cobrar/45fat/6793045a-c061-4db7-971a-5dc5ecb41858', credit: 'https://pagamento.sejaefi.com.br/74e9effb-1fbe-45af-b305-1619a581661f'},
+                {id: 98, category: 'DIA-A-DIA', title: 'Jogo De Cama King Percal 100% Algodão Buona Fortuna 4 Pçs', price: '380,00', image: 'images/98.png', pix: 'https://nubank.com.br/cobrar/45fat/6793048e-d3d5-40db-a542-b73d062b9820', credit: 'https://pagamento.sejaefi.com.br/cf7f72fb-27c6-4866-8671-73ce04c0459b'},
+                {id: 99, category: 'DIA-A-DIA', title: 'Tapete Para Quarto E Sala Amazonas Sisal Havan', price: '480,00', image: 'images/99.png', pix: 'https://nubank.com.br/cobrar/45fat/679304e3-581a-4c45-94e7-ce1f717398be', credit: 'https://pagamento.sejaefi.com.br/232f8428-16c8-419d-9996-b056c2bc1254'},
+                {id: 100, category: 'DIA-A-DIA', title: 'Peitas do Grêmio para quando os noivos se mudarem para o RS', price: '560,00', image: 'images/100.png', pix: 'https://nubank.com.br/cobrar/45fat/67930736-cc88-4c30-b15a-ffe06b6311dc', credit: 'https://pagamento.sejaefi.com.br/9ae4ed41-a9e6-4168-8a34-efa0984ffac1'},
+                {id: 101, category: 'DIA-A-DIA', title: 'Um mês de diarista', price: '800,00', image: 'images/101.png', pix: 'https://nubank.com.br/cobrar/45fat/6792fd69-f722-4126-b65c-569c86234efc', credit: 'https://pagamento.sejaefi.com.br/56768980-ea4c-4981-8b8b-a1c5561e6dfa'},
+                {id: 102, category: 'DIA-A-DIA', title: 'Pinscher simpático que ama visitas', price: '1000,00', image: 'images/102.png', pix: 'https://nubank.com.br/cobrar/45fat/6792fe56-b0fe-4cbc-9cfe-56181a7d1471', credit: 'https://pagamento.sejaefi.com.br/849ac414-65de-4887-b632-d3d78fb01c51'},
+                {id: 103, category: 'DIA-A-DIA', title: 'Ozempic para a noiva após o casamento', price: '1200,00', image: 'images/103.png', pix: 'https://nubank.com.br/cobrar/45fat/67930788-8d00-494b-b7c6-ba4e59037a4b', credit: 'https://pagamento.sejaefi.com.br/eef72faa-37ea-41a1-828a-4beff0d27a14'},
+                {id: 104, category: 'DIA-A-DIA', title: 'Primeira compra de mercado da casa nova', price: '1500,00', image: 'images/104.png', pix: 'https://nubank.com.br/cobrar/45fat/679307ac-fa25-4fec-b8c9-e44b6f128f5c', credit: 'https://pagamento.sejaefi.com.br/d363f30d-5ace-49bd-823b-5e8108cb85dc'},
+                {id: 105, category: 'DIA-A-DIA', title: 'Computador', price: '5000,00', image: 'images/105.png', pix: 'https://nubank.com.br/cobrar/45fat/679307dd-8462-42b4-a11a-2797853a0c6b', credit: 'acima do valor limite do site'},
+
+                {id: 107, category: 'DECORAÇÃO', title: 'Tapete de banheiro personalizado', price: '50,00', image: 'images/107.png', pix: 'https://nubank.com.br/cobrar/45fat/67930244-fac7-4657-a54a-683339820c07', credit: 'https://pagamento.sejaefi.com.br/7dcd9782-686a-496d-b514-4487a1285385'},
+                {id: 108, category: 'DECORAÇÃO', title: 'Porta chaves', price: '50,00', image: 'images/108.png', pix: 'https://nubank.com.br/cobrar/45fat/67930244-fac7-4657-a54a-683339820c07', credit: 'https://pagamento.sejaefi.com.br/e211677f-b62e-4847-9c13-5578789ae1ea'},
+                {id: 109, category: 'DECORAÇÃO', title: 'Almofada decorativa 3D', price: '70,00', image: 'images/109.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f265-a769-4208-868d-1550fcc32bd3', credit: 'https://pagamento.sejaefi.com.br/d0c69ec3-3bfc-4c36-b741-d88ff08d72c3'},
+                {id: 110, category: 'DECORAÇÃO', title: 'Mesa De Apoio Lateral Estilo Industrial', price: '80,00', image: 'images/110.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f2b9-0a09-4285-84ba-d21d70ca68a2', credit: 'https://pagamento.sejaefi.com.br/0315ecaa-d8b4-4193-a945-f4df6cf3fc1a'},
+                {id: 111, category: 'DECORAÇÃO', title: 'Quadros decorativos (mais R$ 200 no PIX tem até direito a uma foto sua)', price: '80,00', image: 'images/111.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f2b9-0a09-4285-84ba-d21d70ca68a2', credit: 'https://pagamento.sejaefi.com.br/d86bd156-93e4-4e2d-aaac-ec21cc3b1593'},
+                {id: 112, category: 'DECORAÇÃO', title: 'Protetor auricular para a noiva + tratamento para os roncos do noivo', price: '100,00', image: 'images/112.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f36e-06f6-4c1a-8836-93cb8efd2291', credit: 'https://pagamento.sejaefi.com.br/86b80edc-c902-48d6-b753-e125cf8c0d2a'},
+                {id: 113, category: 'DECORAÇÃO', title: 'Cortina Blackout em Tecido Premium Corta Luz Blecaute', price: '110,00', image: 'images/113.png', pix: 'https://nubank.com.br/cobrar/45fat/67930365-5ade-48b9-8bcd-a717640b1877', credit: 'https://pagamento.sejaefi.com.br/85891b50-bacd-4313-be2d-2c9e44f18d58'},
+                {id: 114, category: 'DECORAÇÃO', title: 'Kit de enfeites para árvore de natal', price: '200,00', image: 'images/114.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f572-12d0-44f2-b62c-a0f6732895fc', credit: 'https://pagamento.sejaefi.com.br/82ccad7d-0e1b-48a3-9301-13e4e73f4935'},
+                {id: 115, category: 'DECORAÇÃO', title: 'Primeira árvore de natal dos noivos', price: '300,00', image: 'images/115.png', pix: 'https://nubank.com.br/cobrar/45fat/6792f6b8-25c5-495d-8e93-578743a7a8b0', credit: 'https://pagamento.sejaefi.com.br/5eb1ea6b-abdf-4c5a-8303-de7d7fb28bc7'},
+                {id: 116, category: 'DECORAÇÃO', title: 'Orquídea de lego que sobreviva à falta de dons com plantas da noiva', price: '500,00', image: 'images/116.png', pix: 'https://nubank.com.br/cobrar/45fat/6793083d-c018-4440-8e9e-e38ae5824f07', credit: 'https://pagamento.sejaefi.com.br/d0261bce-2e4a-49df-a7d7-21b53974f5f7'},
+                {id: 117, category: 'DECORAÇÃO', title: 'Cristaleira Moss Com Espelho 2 Gavetas Calacata Off White', price: '1480,00', image: 'images/117.png', pix: 'https://nubank.com.br/cobrar/45fat/6793086c-ff93-4ea1-aa84-ead4fa78b4be', credit: 'https://pagamento.sejaefi.com.br/6d25bb00-bcc6-45c9-a7d3-79a6aa54ad71'},
+                {id: 118, category: 'DECORAÇÃO', title: 'Mesa com cadeiras', price: '4000,00', image: 'images/118.png', pix: 'https://nubank.com.br/cobrar/45fat/67930895-965c-475e-97d4-cfa629383871', credit: 'acima do valor limite do site'},
+                {id: 119, category: 'DECORAÇÃO', title: 'Sofá em L', price: '11000,00', image: 'images/119.png', pix: 'https://nubank.com.br/cobrar/45fat/679308ba-ff78-4c69-80b2-f28d3a3a64f0', credit: 'acima do valor limite do site'},
+
+            ];
+
+            $scope.goTo = function(url) {
+                $window.open(url, "_blank");
+            };
+
         });
+
     </script>
 
 </body>
+
 </html>
